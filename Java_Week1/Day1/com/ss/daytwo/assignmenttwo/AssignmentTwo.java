@@ -44,7 +44,7 @@ public class AssignmentTwo {
 		}
 		
 		if(guesses == 0) {
-			System.out.println("Unfortunately you have used all your opportunities. The number was " + num);
+			System.out.println("Sorry, you have used all your opportunities. The number was " + num);
 		}
 
 	}
