@@ -16,7 +16,7 @@ public class AssignmentTwo {
 	 */
 	public static void main(String[] args) {
 
-		int num = (int) (Math.random() * 101);
+		int num = ((int) (Math.random() * 100)) + 1;
 
 		Scanner sc = new Scanner(System.in);
 		int guesses = 5;
@@ -26,7 +26,7 @@ public class AssignmentTwo {
 		while (0 < guesses && sc.hasNextInt()) {
 			guess = sc.nextInt();
 			int diff = Math.abs(num - guess);
-			if (diff >= 0 && diff <= 10) {
+			if (diff <= 10) {
 				if (diff == 0) {
 					System.out.println("Congrats, you got the exact value: " + num);
 					sc.close();
