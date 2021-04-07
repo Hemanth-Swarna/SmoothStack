@@ -17,6 +17,7 @@ public class AssignmentThree {
 		Shape triangle = new Triangle(3, 4);
 		Shape rectangle = new Rectangle(6,7);
 		
+		// Not explicitly calling calculateArea() because we call it in display()
 		circle.display();
 		triangle.display();
 		rectangle.display();

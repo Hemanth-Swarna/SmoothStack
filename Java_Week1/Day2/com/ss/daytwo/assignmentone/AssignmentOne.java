@@ -12,6 +12,8 @@ public class AssignmentOne {
 	/**
 	 * @param args
 	 */
+	
+	// Converting string arguments into ints while handling exceptions for wrong inputs. We then sum up the ints.
 	public static void main(String[] args) {
 
 		int sum = 0;
