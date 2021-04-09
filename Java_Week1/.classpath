@@ -5,5 +5,7 @@
 	<classpathentry kind="src" path="Day1"/>
 	<classpathentry kind="src" path="Day2"/>
 	<classpathentry kind="src" path="Day3"/>
+	<classpathentry kind="src" path="Day4"/>
+	<classpathentry kind="lib" path="C:/Users/heman/Downloads/junit-4.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
