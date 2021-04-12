@@ -6,6 +6,9 @@
 	<classpathentry kind="src" path="Day2"/>
 	<classpathentry kind="src" path="Day3"/>
 	<classpathentry kind="src" path="Day4"/>
+	<classpathentry kind="src" path="Day5"/>
+	<classpathentry kind="src" path="WeeklyAssignment"/>
 	<classpathentry kind="lib" path="C:/Users/heman/Downloads/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/heman/Downloads/hamcrest-all-1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
