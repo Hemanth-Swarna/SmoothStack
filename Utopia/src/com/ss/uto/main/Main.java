@@ -51,11 +51,17 @@ public class Main {
 //		adminr.updateRoute();
 //		adminairt.getAirplaneTypes();
 //		adminap.getAirplanes();
-		
+//		
 		MainMenu main = new MainMenu();
 		main.menu();
 		
-//		admins.getSeats();
+//		admintap.getBookings();
+		
+//		FlightBookingsDAO fbdao = new FlightBookingsDAO((new ConnectionUtil()).getConnection());
+//		List<FlightBookings> bookings = fbdao.getAllBookingUsers();
+//		for(FlightBookings f: bookings) {
+//			System.out.println(f);
+//		}
 		
 	}
 

@@ -12,9 +12,11 @@ import java.util.Scanner;
 import com.ss.uto.dao.AirplaneDAO;
 import com.ss.uto.dao.AirportDAO;
 import com.ss.uto.dao.FlightDAO;
+import com.ss.uto.dao.RouteDAO;
 import com.ss.uto.dao.UserDAO;
 import com.ss.uto.entity.Airport;
 import com.ss.uto.entity.Flight;
+import com.ss.uto.entity.Route;
 import com.ss.uto.entity.User;
 import com.ss.uto.service.AdminSeatService;
 import com.ss.uto.service.ConnectionUtil;
@@ -68,12 +70,12 @@ public class EmployeeMainMenu {
 
 		System.out.println("Please enter which flight you would like to observe");
 		int choice = sc.nextInt();
-		while (choice > flights.size() || choice < 0) {
+		while (choice > flights.size() || choice < 1) {
 			System.out.println("Please enter a valid number.");
 			choice = sc.nextInt();
 		}
 
-		EMP3(flights.get(choice));
+		EMP3(flights.get(choice - 1));
 
 	}
 
@@ -115,9 +117,9 @@ public class EmployeeMainMenu {
 
 	@SuppressWarnings("deprecation")
 	static void viewDetails(Flight f) throws ClassNotFoundException, SQLException {
-		
+
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println("You have chose to view Flight with Flight ID: " + f.getId() + " and Departure Airport: "
 				+ f.getRoute().getOriAirport().getAirportCode() + " and Arrival Airport: "
 				+ f.getRoute().getDesAirport().getAirportCode());
@@ -131,18 +133,17 @@ public class EmployeeMainMenu {
 		System.out.println("2) Business -> 0");
 		System.out.println("3) Economy -> " + (f.getAirplane().getType().getMax_capacity() - f.getReservedSeats()));
 		System.out.println("4) Go back");
-		
-		
+
 		int choice = sc.nextInt();
-		
+
 		while (choice != 4) {
 			System.out.println("Please enter a valid number.");
 			choice = sc.nextInt();
 		}
-		
+
 		System.out.println("Press 4 to go back");
-		
-		switch(choice) {
+
+		switch (choice) {
 		case 4:
 			EMP3(f);
 			break;
@@ -152,35 +153,94 @@ public class EmployeeMainMenu {
 			System.exit(0);
 			break;
 		}
-		
-		
+
 	}
 
-	static void employeeUpdate(Flight f) {
+	static void employeeUpdate(Flight f) throws ClassNotFoundException, SQLException {
+		Scanner sc = new Scanner(System.in);
 		System.out.println("You have chose to update Flight with Flight ID: " + f.getId() + " and Departure Airport: "
 				+ f.getRoute().getOriAirport().getAirportCode() + " and Arrival Airport: "
 				+ f.getRoute().getDesAirport().getAirportCode());
 		System.out.println();
+
+//		if(sc.nextLine().equals("quit")) {
+//			EMP3(f);
+//		}
+
+		System.out.println("Please enter new Origin Airport and City or enter N/A for no change:");
+		String ori = sc.nextLine();
+		String ori_city = sc.nextLine();
+		System.out.println("Please enter new Destination Airport and City or enter N/A for no change:");
+		String des = sc.nextLine();
+		String des_city = sc.nextLine();
+
+		if (ori.equals("N/A")) {
+			ori = f.getRoute().getOriAirport().getAirportCode();
+			ori_city = f.getRoute().getOriAirport().getCityName();
+		}
+		if (des.equals("N/A")) {
+			des = f.getRoute().getDesAirport().getAirportCode();
+			des_city = f.getRoute().getDesAirport().getCityName();
+		}
+
+		Route newroute = new Route();
+		Airport oriAirport = new Airport();
+		Airport desAirport = new Airport();
+		oriAirport.setAirportCode(ori);
+		oriAirport.setCityName(ori_city);
+		desAirport.setAirportCode(des);
+		desAirport.setCityName(des_city);
+		newroute.setOriAirport(oriAirport);
+		newroute.setDesAirport(desAirport);
+		RouteDAO rdao = new RouteDAO((new ConnectionUtil()).getConnection());
+		rdao.addRoute(newroute);
+		
+		System.out.println(newroute.getOriAirport().getAirportCode());
+		System.out.println(newroute.getDesAirport().getAirportCode());
+		FlightDAO flightdao = new FlightDAO((new ConnectionUtil()).getConnection());
+		List<Route> route2 = rdao.read("select * from route where origin_id = ? AND destination_id = ?",
+				newroute.getOriAirport().getAirportCode(), newroute.getDesAirport().getAirportCode());
+		System.out.println(route2.size());
+		f.setRoute(route2.get(0));
+
+		System.out.println("Please enter new Departure Date or enter N/A for no change:");
+		String date = sc.nextLine();
+		System.out.println("Please enter new Departure Time or enter N/A for no change:");
+		String time = sc.nextLine();
+		if (date.equals("N/A")) {
+			date = f.getDeparture().toString().split(" ")[0];
+		}
+		if (time.equals("N/A")) {
+			time = f.getDeparture().toString().split(" ")[1];
+		}
+		Timestamp departure = Timestamp.valueOf(date + " " + time);
+		f.setDeparture(departure);
+		System.out.println("Please enter new Arrival Date or enter N/A for no change:");
+		String adate = sc.nextLine();
+		System.out.println("Please enter new Arrival Time or enter N/A for no change:");
+		String atime = sc.nextLine();
+
+		flightdao.updateFlight(f);
 	}
 
-	static void addSeats(Flight f) throws SQLException {
-		
+	static void addSeats(Flight f) throws SQLException, ClassNotFoundException {
+
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println("Pick the Seat Class you want to add seats of, to your flight:");
 		System.out.println("1) First");
 		System.out.println("2) Business");
 		System.out.println("3) Economy");
 		System.out.println("4) Quit to cancel operation");
-		
+
 		int choice = sc.nextInt();
 		while (choice > 4 || choice < 1) {
 			System.out.println("Please enter a valid number.");
 			choice = sc.nextInt();
 		}
-		
-		switch(choice) {
-		case 1: 
+
+		switch (choice) {
+		case 1:
 			System.out.println("Pick again, no seats avialable");
 			addSeats(f);
 			break;
@@ -189,8 +249,25 @@ public class EmployeeMainMenu {
 			addSeats(f);
 			break;
 		case 3:
-			AdminSeatService seats = new AdminSeatService();
-			seats.addSeats();
+			System.out.println("Existing number of seats: "
+					+ (f.getAirplane().getType().getMax_capacity() - f.getReservedSeats()));
+
+			int newseats = sc.nextInt();
+
+			System.out.println("Enter new number of seats: ");
+
+			if (newseats + f.getReservedSeats() > f.getAirplane().getType().getMax_capacity()) {
+				System.out.println("Number too large");
+				addSeats(f);
+			} else {
+				f.setReservedSeats(newseats + f.getReservedSeats());
+				FlightDAO flightdao = new FlightDAO((new ConnectionUtil()).getConnection());
+				flightdao.updateFlight(f);
+				addSeats(f);
+			}
+			break;
+		case 4:
+			EMP3(f);
 			break;
 		default:
 			System.out.println("Invalid choice");
@@ -198,7 +275,7 @@ public class EmployeeMainMenu {
 			System.exit(0);
 			break;
 		}
-		
+
 	}
 
 	private static String findCity(String code) throws ClassNotFoundException, SQLException {

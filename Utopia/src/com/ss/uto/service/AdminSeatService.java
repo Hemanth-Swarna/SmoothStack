@@ -128,8 +128,8 @@ public class AdminSeatService {
 								PassengerDAO pdao = new PassengerDAO(conn);
 								List<Passenger> passengers = pdao.read("select * from passenger where booking_id = ?", id);
 								f.setReservedSeats(f.getReservedSeats()+passengers.size());
-								flightdao.updateFlight(f);
 							}
+							flightdao.updateFlight(f);
 						}
 					}
 
