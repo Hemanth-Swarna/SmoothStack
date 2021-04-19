@@ -4,6 +4,8 @@
 package com.ss.uto.main;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Scanner;
 
@@ -63,7 +65,6 @@ public class EmployeeMainMenu {
 					+ findCity(f.getRoute().getDesAirport().getAirportCode()));
 		}
 
-		
 		System.out.println("Please enter which flight you would like to observe");
 		int choice = sc.nextInt();
 		while (choice > flights.size() || choice < 0) {
@@ -110,17 +111,66 @@ public class EmployeeMainMenu {
 			break;
 		}
 	}
-	
-	static void viewDetails(Flight f) {
-		System.out.println("hi");
+
+	@SuppressWarnings("deprecation")
+	static void viewDetails(Flight f) throws ClassNotFoundException, SQLException {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("You have chose to view Flight with Flight ID: " + f.getId() + " and Departure Airport: "
+				+ f.getRoute().getOriAirport().getAirportCode() + " and Arrival Airport: "
+				+ f.getRoute().getDesAirport().getAirportCode());
+		System.out.println();
+		System.out.println("Departure Airport: " + f.getRoute().getOriAirport().getAirportCode() + " | Arrival Airport:"
+				+ f.getRoute().getDesAirport().getAirportCode() + " | ");
+		System.out.println("Departure: " + f.getDeparture());
+		System.out.println("Arrival: " + Timestamp.from(f.getDeparture().toInstant().plus(5, ChronoUnit.HOURS)));
+		System.out.println("Available Seats by Class:");
+		System.out.println("1) First -> 0");
+		System.out.println("2) Business -> 0");
+		System.out.println("3) Economy -> " + (f.getAirplane().getType().getMax_capacity() - f.getReservedSeats()));
+		System.out.println("4) Go back");
+		
+		
+		int choice = sc.nextInt();
+		
+		while (choice != 4) {
+			System.out.println("Please enter a valid number.");
+			choice = sc.nextInt();
+		}
+		
+		System.out.println("Press 4 to go back");
+		
+		switch(choice) {
+		case 4:
+			EMP3(f);
+			break;
+		default:
+			System.out.println("Invalid choice");
+			sc.close();
+			System.exit(0);
+			break;
+		}
+		
+		
 	}
-	
+
 	static void employeeUpdate(Flight f) {
-		System.out.println("hi");
+		System.out.println("You have chose to update Flight with Flight ID: " + f.getId() + " and Departure Airport: "
+				+ f.getRoute().getOriAirport().getAirportCode() + " and Arrival Airport: "
+				+ f.getRoute().getDesAirport().getAirportCode());
+		System.out.println();
 	}
-	
+
 	static void addSeats(Flight f) {
-		System.out.println("hi");
+		System.out.println("Pick the Seat Class you want to add seats of, to your flight:");
+		System.out.println("1) First");
+		System.out.println("2) Business");
+		System.out.println("3) Economy");
+		System.out.println("4) Quit to cancel operation");
+		
+		System.out.println();
+		
 	}
 
 	private static String findCity(String code) throws ClassNotFoundException, SQLException {

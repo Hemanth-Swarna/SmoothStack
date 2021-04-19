@@ -31,6 +31,7 @@ public class AdminMainMenu {
 		System.out.println("4) Airports");
 		System.out.println("5) Travelers");
 		System.out.println("6) Employees");
+		System.out.println("7) Override Trip Cancellation");
 
 		int choice = sc.nextInt();
 		while (choice > 6 || choice < 0) {
@@ -59,6 +60,8 @@ public class AdminMainMenu {
 			break;
 		case 6:
 			employeesMenu();
+			break;
+		case 7:
 			break;
 		default:
 			System.out.println("Invalid choice");

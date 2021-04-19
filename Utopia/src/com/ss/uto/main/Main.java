@@ -52,8 +52,8 @@ public class Main {
 //		adminairt.getAirplaneTypes();
 //		adminap.getAirplanes();
 		
-		EmployeeMainMenu em = new EmployeeMainMenu();
-		em.EMP2();
+		MainMenu main = new MainMenu();
+		main.menu();
 		
 //		admins.getSeats();
 		

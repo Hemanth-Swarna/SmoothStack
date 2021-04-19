@@ -128,17 +128,11 @@ public class AdminSeatService {
 								PassengerDAO pdao = new PassengerDAO(conn);
 								List<Passenger> passengers = pdao.read("select * from passenger where booking_id = ?", id);
 								f.setReservedSeats(f.getReservedSeats()+passengers.size());
+								flightdao.updateFlight(f);
 							}
 						}
 					}
-					
-					
 
-//					PassengerDAO pdao = new PassengerDAO(conn);
-//					List<Passenger> passengers = pdao.read("select * from passenger where booking_id = ?", booking_id);
-//					for (Passenger p : passengers) {
-//						System.out.println(p);
-//					}
 
 					System.out.println(f.getReservedSeats());
 				}
