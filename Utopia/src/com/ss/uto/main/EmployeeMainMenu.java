@@ -16,6 +16,7 @@ import com.ss.uto.dao.UserDAO;
 import com.ss.uto.entity.Airport;
 import com.ss.uto.entity.Flight;
 import com.ss.uto.entity.User;
+import com.ss.uto.service.AdminSeatService;
 import com.ss.uto.service.ConnectionUtil;
 
 /**
@@ -162,14 +163,41 @@ public class EmployeeMainMenu {
 		System.out.println();
 	}
 
-	static void addSeats(Flight f) {
+	static void addSeats(Flight f) throws SQLException {
+		
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("Pick the Seat Class you want to add seats of, to your flight:");
 		System.out.println("1) First");
 		System.out.println("2) Business");
 		System.out.println("3) Economy");
 		System.out.println("4) Quit to cancel operation");
 		
-		System.out.println();
+		int choice = sc.nextInt();
+		while (choice > 4 || choice < 1) {
+			System.out.println("Please enter a valid number.");
+			choice = sc.nextInt();
+		}
+		
+		switch(choice) {
+		case 1: 
+			System.out.println("Pick again, no seats avialable");
+			addSeats(f);
+			break;
+		case 2:
+			System.out.println("Pick again, no seats avialable");
+			addSeats(f);
+			break;
+		case 3:
+			AdminSeatService seats = new AdminSeatService();
+			seats.addSeats();
+			break;
+		default:
+			System.out.println("Invalid choice");
+			sc.close();
+			System.exit(0);
+			break;
+		}
 		
 	}
 
