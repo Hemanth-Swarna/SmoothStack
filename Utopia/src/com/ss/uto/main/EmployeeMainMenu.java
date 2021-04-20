@@ -3,6 +3,7 @@
  */
 package com.ss.uto.main;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.temporal.ChronoUnit;
@@ -126,8 +127,9 @@ public class EmployeeMainMenu {
 		System.out.println();
 		System.out.println("Departure Airport: " + f.getRoute().getOriAirport().getAirportCode() + " | Arrival Airport:"
 				+ f.getRoute().getDesAirport().getAirportCode() + " | ");
-		System.out.println("Departure: " + f.getDeparture());
-		System.out.println("Arrival: " + Timestamp.from(f.getDeparture().toInstant().plus(5, ChronoUnit.HOURS)));
+		System.out.println("Departure Date: " + f.getDeparture().toString().split(" ")[0] + " | " + "Departure Time: " + f.getDeparture().toString().split(" ")[1] + " |");
+		Timestamp stamp = Timestamp.from(f.getDeparture().toInstant().plus(5, ChronoUnit.HOURS));
+		System.out.println("Arrival Date: " + stamp.toString().split(" ")[0] + " | " + "Arrival Time: " + stamp.toString().split(" ")[1] + " | ");
 		System.out.println("Available Seats by Class:");
 		System.out.println("1) First -> 0");
 		System.out.println("2) Business -> 0");
@@ -162,10 +164,6 @@ public class EmployeeMainMenu {
 				+ f.getRoute().getOriAirport().getAirportCode() + " and Arrival Airport: "
 				+ f.getRoute().getDesAirport().getAirportCode());
 		System.out.println();
-
-//		if(sc.nextLine().equals("quit")) {
-//			EMP3(f);
-//		}
 
 		System.out.println("Please enter new Origin Airport and City or enter N/A for no change:");
 		String ori = sc.nextLine();
@@ -252,17 +250,30 @@ public class EmployeeMainMenu {
 			System.out.println("Existing number of seats: "
 					+ (f.getAirplane().getType().getMax_capacity() - f.getReservedSeats()));
 
-			int newseats = sc.nextInt();
-
 			System.out.println("Enter new number of seats: ");
+			
+			int newseats = sc.nextInt();
 
 			if (newseats + f.getReservedSeats() > f.getAirplane().getType().getMax_capacity()) {
 				System.out.println("Number too large");
 				addSeats(f);
 			} else {
 				f.setReservedSeats(newseats + f.getReservedSeats());
-				FlightDAO flightdao = new FlightDAO((new ConnectionUtil()).getConnection());
-				flightdao.updateFlight(f);
+				
+				ConnectionUtil connUtil = new ConnectionUtil();
+				Connection conn = null;
+				try {
+					conn = connUtil.getConnection();
+					FlightDAO flightdao = new FlightDAO(conn);
+					System.out.println(f.toString());
+					flightdao.updateFlight(f);
+					conn.commit();
+				} catch (Exception e) {
+					e.printStackTrace();
+					conn.rollback();
+				} finally {
+					conn.close();
+				}
 				addSeats(f);
 			}
 			break;

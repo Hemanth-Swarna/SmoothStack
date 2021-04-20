@@ -38,30 +38,9 @@ public class Main {
 	 */
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		
-//		AdminRouteService adminr = new AdminRouteService();
-//		AdminAirportService admina = new AdminAirportService();
-//		AdminAirplaneTypeService adminairt = new AdminAirplaneTypeService();
-//		AdminAirplaneService adminap = new AdminAirplaneService();
-//		AdminFlightService adminf = new AdminFlightService();
-//		AdminSeatService admins = new AdminSeatService();
-//		AdminTravelerService admint = new AdminTravelerService();
-//		AdminEmployeeService admine = new AdminEmployeeService();
-//		AdminTicketAndPassengersService admintap = new AdminTicketAndPassengersService();
-//		admina.getAirports();
-//		adminr.updateRoute();
-//		adminairt.getAirplaneTypes();
-//		adminap.getAirplanes();
-//		
 		MainMenu main = new MainMenu();
 		main.menu();
 		
-//		admintap.getBookings();
-		
-//		FlightBookingsDAO fbdao = new FlightBookingsDAO((new ConnectionUtil()).getConnection());
-//		List<FlightBookings> bookings = fbdao.getAllBookingUsers();
-//		for(FlightBookings f: bookings) {
-//			System.out.println(f);
-//		}
 		
 	}
 

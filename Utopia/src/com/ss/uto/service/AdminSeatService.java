@@ -89,7 +89,6 @@ public class AdminSeatService {
 		Connection conn = null;
 		try {
 			conn = connUtil.getConnection();
-			FlightDAO flightdao = new FlightDAO(conn);
 			System.out.println("Press Y to add seats or N to delete seats");
 			String input = sc.nextLine();
 			if (input.equals("Y")) {
