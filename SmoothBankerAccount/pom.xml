@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ss</groupId>
-	<artifactId>SmoothBankerAccount-1</artifactId>
+	<artifactId>SmoothBankerAccount</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SmoothBankerAccount-1</name>
+	<name>SmoothBankerAccount</name>
 	<description>Account part in SmoothBankers</description>
 	<properties>
 		<java.version>1.8</java.version>

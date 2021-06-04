@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SmoothBankerAccount1Application {
+public class SmoothBankerAccountApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmoothBankerAccount1Application.class, args);
+		SpringApplication.run(SmoothBankerAccountApplication.class, args);
 	}
 
 }

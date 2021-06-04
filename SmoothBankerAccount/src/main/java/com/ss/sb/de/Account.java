@@ -3,24 +3,31 @@
  */
 package com.ss.sb.de;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * @author heman
  *
  */
-
 @Entity
 @Table(name = "account")
 public class Account {
 
 	@Id
 	private int account_id;
-	private int user_id;
+	
+	@ManyToOne
+	@JoinColumn(name = "user")
+	private User user;
 	private int transaction_id;
 	private int investing_id;
-
+	
 	@ManyToOne
+	@JoinColumn(name = "account_type")
 	private AccountType account_type;
 
 	/**
@@ -38,17 +45,17 @@ public class Account {
 	}
 
 	/**
-	 * @return the user_id
+	 * @return the user
 	 */
-	public int getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
 	/**
-	 * @param user_id the user_id to set
+	 * @param user the user to set
 	 */
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**
@@ -95,7 +102,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [account_id=" + account_id + ", user_id=" + user_id + ", transaction_id=" + transaction_id
+		return "Account [account_id=" + account_id + ", user=" + user + ", transaction_id=" + transaction_id
 				+ ", investing_id=" + investing_id + ", account_type=" + account_type + "]";
 	}
 

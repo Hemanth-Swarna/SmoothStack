@@ -3,13 +3,14 @@
  */
 package com.ss.sb.de;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author heman
  *
  */
-
 @Entity
 @Table(name = "account_type")
 public class AccountType {

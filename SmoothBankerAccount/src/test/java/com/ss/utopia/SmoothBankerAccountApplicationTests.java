@@ -1,10 +1,10 @@
-package com.ss.sb;
+package com.ss.utopia;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SmoothBankerAccount1ApplicationTests {
+class SmoothBankerAccountApplicationTests {
 
 	@Test
 	void contextLoads() {

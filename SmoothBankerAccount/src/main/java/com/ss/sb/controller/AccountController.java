@@ -6,6 +6,8 @@ package com.ss.sb.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,10 +24,12 @@ import com.ss.sb.service.AccountService;
 public class AccountController {
 	
 	@Autowired
-	AccountService service;
-
+	AccountService accountservice;
+	
+	@CrossOrigin
 	@GetMapping
-	public List<Account> getAllAccounts() {
-		return service.getAllAccounts();
+	public ResponseEntity<List<Account>> readAccounts() {
+		return accountservice.getAllAccounts();
 	}
+
 }
